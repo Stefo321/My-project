@@ -1,0 +1,16 @@
+# Exclude virtual environments
+venv/
+
+# Exclude compiled Python files
+*.pyc
+*.pyo
+__pycache__/
+
+# Exclude environment variables
+.env
+
+# Exclude SQLite database
+*.sqlite3
+
+# Exclude media uploads (if applicable)
+media/

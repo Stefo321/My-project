@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Post List</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container mt-5">
+        <h1>Posts</h1>
+        <ul>
+            {% for post in posts %}
+                <li>
+                    <a href="{% url 'post_detail' post.pk %}">
+                        <strong>{{ post.title }}</strong>
+                    </a>
+                    - {{ post.created_at|date:"F j, Y, g:i a" }}
+                    <!-- Add Edit button -->
+                    <a href="{% url 'post_edit' post.pk %}" class="btn btn-warning btn-sm ml-2">Edit</a>
+                    <!-- Add Delete button -->
+                    <a href="{% url 'post_delete' post.pk %}" class="btn btn-danger btn-sm ml-2">Delete</a>
+                </li>
+            {% empty %}
+                <p>No posts available.</p>
+            {% endfor %}
+        </ul>
+    </div>
+</body>
+</html>
