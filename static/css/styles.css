@@ -1,0 +1,12 @@
+.messages {
+  margin-top: 20px;
+  padding: 10px;
+  background-color: #d4edda;
+  border: 1px solid #c3e6cb;
+  color: #155724;
+  border-radius: 5px;
+}
+
+.messages .message {
+  margin: 5px 0;
+}

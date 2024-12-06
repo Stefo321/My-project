@@ -1,0 +1,47 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}My Blog{% endblock %}</title>
+
+    <!-- Link to the external CSS file -->
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+</head>
+<body>
+    <!-- Navigation or Header Section -->
+    <header>
+        <nav>
+            <ul>
+                <li><a href="{% url 'post_list' %}">Home</a></li>
+
+                <!-- Show 'Create Post' link only to Admins -->
+                {% if user.is_authenticated %}
+                    {% if is_admin %}
+                        <li><a href="{% url 'create_post' %}">Create Post</a></li>
+                    {% endif %}
+
+                    <!-- Show 'My Profile' link -->
+                    <li><a href="{% url 'user_profile' %}">My Profile</a></li>
+
+                    <li><a href="{% url 'logout' %}">Logout</a></li>
+                {% else %}
+                    <li><a href="{% url 'login' %}">Login</a></li>
+                {% endif %}
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Main Content Section -->
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+
+    <!-- Footer Section (Optional) -->
+    <footer>
+        <p>&copy; 2024 My Blog</p>
+    </footer>
+</body>
+</html>

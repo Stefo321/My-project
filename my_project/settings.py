@@ -122,5 +122,9 @@ STATIC_URL = 'static/'
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 LOGIN_URL = 'login'  # Redirect to the login view if not logged in
+# For production, you might want to add the following as well
+STATICFILES_DIRS = [BASE_DIR / "static"]
+LOGIN_REDIRECT_URL = 'post_list'  # Redirect to the post list page after login
+
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'

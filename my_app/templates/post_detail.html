@@ -1,11 +1,48 @@
-<!DOCTYPE html>
-<html lang="">
-<head>
-    <title>{{ post.title }}</title>
-</head>
-<body>
-    <h1>{{ post.title }}</h1>
-    <p>{{ post.content }}</p>
-    <p>Created at: {{ post.created_at|date:"F j, Y, g:i a" }}</p>
-</body>
-</html>
+{% extends 'base.html' %}
+
+{% block content %}
+  <!-- Post Details -->
+  <h1>{{ post.title }}</h1>
+  <p>{{ post.content }}</p>
+  <p>Created at: {{ post.created_at|date:"F j, Y, g:i a" }}</p>
+
+  <!-- Show 'Edit' and 'Delete' buttons only for Admins or the author -->
+  {% if user.is_authenticated and is_admin_or_author %}
+    <a href="{% url 'post_edit' post.pk %}" class="btn btn-warning">Edit Post</a>
+    <a href="{% url 'post_delete' post.pk %}" class="btn btn-danger btn-sm">Delete</a>
+  {% endif %}
+
+  <!-- Comments Section -->
+  <h2>Comments</h2>
+  <div>
+    {% if comments %}
+      {% for comment in comments %}
+        <p><strong>{{ comment.author }}</strong>: {{ comment.text }}</p>
+        <p><small>{{ comment.created_at }}</small></p>
+      {% endfor %}
+    {% else %}
+      <p>No comments yet. Be the first to comment!</p>
+    {% endif %}
+  </div>
+
+  <!-- Add a Comment -->
+  <h3>Add a Comment</h3>
+  {% if user.is_authenticated %}
+    <form method="post">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <button type="submit">Post Comment</button>
+    </form>
+  {% else %}
+    <p>You must be logged in to post a comment.</p>
+  {% endif %}
+
+  <!-- Display success or error messages -->
+  {% if messages %}
+    <div class="messages">
+      {% for message in messages %}
+        <p class="message">{{ message }}</p>
+      {% endfor %}
+    </div>
+  {% endif %}
+{% endblock %}
