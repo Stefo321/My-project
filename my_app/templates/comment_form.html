@@ -1,10 +1,58 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block content %}
     <h2>Edit Comment</h2>
-    <form method="post">
+
+    {% if messages %}
+        <div class="alert alert-info">
+            {% for message in messages %}
+                <p>{{ message }}</p>
+            {% endfor %}
+        </div>
+    {% endif %}
+
+    <form method="post" id="commentForm" novalidate>
         {% csrf_token %}
         {{ form.as_p }}
-        <button type="submit">Post Comment</button>
+
+        <!-- Display errors for each field -->
+        {% for field in form %}
+            {% if field.errors %}
+                <div class="alert alert-danger">
+                    {% for error in field.errors %}
+                        <p>{{ error }}</p>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        {% endfor %}
+
+        <button type="submit" class="btn btn-primary">Post Comment</button>
     </form>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var commentField = document.getElementById('id_text');
+
+            // Add custom validation message for empty comment text
+            commentField.addEventListener('invalid', function () {
+                this.setCustomValidity('Comment text is required. Please enter your comment.');
+            });
+
+            // Clear custom message when user starts typing
+            commentField.addEventListener('input', function () {
+                this.setCustomValidity('');
+            });
+
+            // Prevent form submission if the field is empty
+            document.getElementById('commentForm').addEventListener('submit', function (event) {
+                if (commentField.value.trim() === '') {
+                    alert('Comment text is required!');
+                    event.preventDefault();  // Stop form submission
+                }
+            });
+        });
+    </script>
+
+    <script src="{% static 'js/form-validation.js' %}"></script>
 {% endblock %}

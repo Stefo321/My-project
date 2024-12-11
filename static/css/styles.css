@@ -1,12 +1,268 @@
+/* Base styling */
+body {
+  font-family: 'Arial', sans-serif;
+  line-height: 1.6;
+  margin: 0;
+  padding: 0;
+  background-color: #f9f9f9;
+  color: #333;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+/* Header and Navigation */
+header {
+  background-color: #343a40;
+  color: #fff;
+  padding: 15px 20px;
+}
+
+header nav ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap; /* Ensures navigation wraps on smaller screens */
+}
+
+header nav ul li {
+  display: inline;
+}
+
+header nav ul li a {
+  color: #fff;
+  text-decoration: none;
+  padding: 5px 10px;
+  border-radius: 3px;
+}
+
+header nav ul li a:hover {
+  background-color: #495057;
+}
+
+/* Messages styling */
 .messages {
-  margin-top: 20px;
-  padding: 10px;
+  margin: 20px auto;
+  padding: 15px;
+  max-width: 800px;
+  border-radius: 5px;
+  font-size: 16px;
+  text-align: center;
+}
+
+.messages.success {
   background-color: #d4edda;
   border: 1px solid #c3e6cb;
   color: #155724;
-  border-radius: 5px;
 }
 
-.messages .message {
-  margin: 5px 0;
+.messages.error {
+  background-color: #f8d7da;
+  border: 1px solid #f5c6cb;
+  color: #721c24;
+}
+
+.messages.warning {
+  background-color: #fff3cd;
+  border: 1px solid #ffeeba;
+  color: #856404;
+}
+
+/* Buttons */
+button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 3px;
+  background-color: #007bff;
+  color: #fff;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+button:hover {
+  background-color: #0056b3;
+}
+
+button:focus {
+  outline: 2px solid #007bff;
+  outline-offset: 2px;
+}
+
+button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Footer */
+footer {
+  background-color: #343a40;
+  color: #fff;
+  text-align: center;
+  padding: 10px;
+  margin-top: 20px;
+  border-top: 1px solid #495057;
+}
+
+footer p {
+  margin: 0;
+}
+
+/* Main Content */
+main {
+  padding: 20px;
+  max-width: 800px;
+  margin: 20px auto;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Post Detail Page */
+.post-detail {
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.post-title {
+    font-size: 2em;
+    margin-bottom: 10px;
+    color: #343a40;
+}
+
+.post-meta {
+    font-size: 0.9em;
+    color: #6c757d;
+    margin-bottom: 20px;
+}
+
+.post-content {
+    font-size: 1.1em;
+    line-height: 1.6;
+    margin-bottom: 30px;
+}
+
+/* Post Actions */
+.post-actions a {
+  margin-right: 10px;
+  text-decoration: none;
+  color: #fff;
+  padding: 8px 15px;
+  border-radius: 3px;
+  display: inline-block;
+}
+
+.post-actions .btn-warning {
+  background-color: #ffc107;
+}
+
+.post-actions .btn-warning:hover {
+  background-color: #e0a800;
+}
+
+.post-actions .btn-danger {
+  background-color: #dc3545;
+}
+
+.post-actions .btn-danger:hover {
+  background-color: #c82333;
+}
+
+/* Like/Dislike Buttons */
+.like-dislike-actions form button {
+  margin-right: 10px;
+}
+
+.btn-success {
+  background-color: green;
+  color: white;
+}
+
+.btn-success:hover {
+  background-color: darkgreen;
+}
+
+.btn-danger {
+  background-color: red;
+  color: white;
+}
+
+.btn-danger:hover {
+  background-color: darkred;
+}
+
+/* Comments Section */
+.comments-section {
+    margin-top: 40px;
+    padding-top: 20px;
+    border-top: 1px solid #ddd;
+}
+
+.comments-section h2 {
+    font-size: 1.5em;
+    margin-bottom: 20px;
+    color: #495057;
+}
+
+.comments-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.comments-list li {
+    margin-bottom: 15px;
+    padding: 10px;
+    background-color: #f8f9fa;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+}
+
+.comments-list li p {
+    margin: 0;
+    padding: 5px 0;
+}
+
+.comment-meta {
+    display: block;
+    font-size: 0.8em;
+    color: #6c757d;
+    margin-top: 5px;
+}
+
+/* Add Comment Section */
+.add-comment {
+    margin-top: 30px;
+}
+
+.add-comment h3 {
+    font-size: 1.5em;
+    margin-bottom: 20px;
+}
+
+.add-comment form {
+    display: flex;
+    flex-direction: column;
+}
+
+.add-comment form input,
+.add-comment form textarea {
+    margin-bottom: 10px;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 3px;
+    font-size: 16px;
+}
+
+.add-comment form button {
+    margin-top: 10px;
+    align-self: flex-start;
 }

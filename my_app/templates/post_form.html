@@ -1,3 +1,5 @@
+{% load static %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,12 +11,71 @@
 <body>
     <div class="container mt-5">
         <h1>Edit Post</h1>
-        <form method="post">
+
+        {% if messages %}
+            <div class="alert alert-info">
+                {% for message in messages %}
+                    <p>{{ message }}</p>
+                {% endfor %}
+            </div>
+        {% endif %}
+
+        <form method="post" id="postForm" novalidate>
             {% csrf_token %}
             {{ form.as_p }}
+
+            <!-- Display errors for each field -->
+            {% for field in form %}
+                {% if field.errors %}
+                    <div class="alert alert-danger">
+                        {% for error in field.errors %}
+                            <p>{{ error }}</p>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            {% endfor %}
+
             <button type="submit" class="btn btn-primary">Update Post</button>
         </form>
         <a href="{% url 'post_list' %}" class="btn btn-secondary mt-3">Back to Posts</a>
     </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var titleField = document.getElementById('id_title');
+            var contentField = document.getElementById('id_content');
+
+            // Add custom validation message for empty fields
+            titleField.addEventListener('invalid', function () {
+                this.setCustomValidity('Title is required. Please enter a title.');
+            });
+
+            contentField.addEventListener('invalid', function () {
+                this.setCustomValidity('Content is required. Please enter some content.');
+            });
+
+            // Clear validation messages when user starts typing
+            titleField.addEventListener('input', function () {
+                this.setCustomValidity('');
+            });
+
+            contentField.addEventListener('input', function () {
+                this.setCustomValidity('');
+            });
+
+            // Prevent form submission if fields are empty
+            document.getElementById('postForm').addEventListener('submit', function (event) {
+                if (titleField.value.trim() === '') {
+                    alert('Title is required!');
+                    event.preventDefault();  // Stop form submission
+                } else if (contentField.value.trim() === '') {
+                    alert('Content is required!');
+                    event.preventDefault();  // Stop form submission
+                }
+            });
+        });
+    </script>
+
+    <script src="{% static 'js/form-validation.js' %}"></script>
 </body>
 </html>

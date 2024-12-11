@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block title %}Notifications{% endblock %}
+
+{% block content %}
+    <div class="container mt-5">
+        <h1>Your Notifications</h1>
+
+        {% if notifications %}
+            {% for notification in notifications %}
+                <div class="notification mb-3">
+                    <p>{{ notification.message }}</p>
+                    {% if notification.post %}
+                        <a href="{% url 'post_detail' pk=notification.post.pk %}" class="btn btn-primary">View Post</a>
+                    {% endif %}
+                </div>
+            {% endfor %}
+        {% else %}
+            <p>You have no new notifications.</p>
+        {% endif %}
+    </div>
+{% endblock %}

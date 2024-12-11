@@ -7,12 +7,50 @@
   <p>Email: {{ user.email }}</p>
   <p>Joined: {{ user.date_joined|date:"F j, Y" }}</p>
 
+  <!-- Display Avatar -->
+  {% if user.profile.avatar %}
+    <img src="{{ user.profile.avatar.url }}" alt="Avatar" style="max-width: 200px; height: auto;">
+  {% else %}
+    <p>No avatar uploaded.</p>
+  {% endif %}
+
   <h2>Your Posts</h2>
   {% if posts %}
     <ul>
       {% for post in posts %}
         <li>
           <a href="{% url 'post_detail' post.pk %}">{{ post.title }}</a> - Created at: {{ post.created_at|date:"F j, Y" }}
+
+          <!-- Display Categories -->
+          {% if post.categories.all %}
+            <br><strong>Categories:</strong>
+            <ul>
+              {% for category in post.categories.all %}
+                <li>{{ category.name }}</li>
+              {% endfor %}
+            </ul>
+          {% endif %}
+
+          <!-- Like/Dislike buttons -->
+          <br>
+          {% if post.pk in liked_posts %}
+            <span>You liked this post.</span>
+          {% else %}
+            <form action="{% url 'like_dislike' post.pk %}" method="post">
+              {% csrf_token %}
+              <button type="submit" name="action" value="like">Like</button>
+            </form>
+          {% endif %}
+
+          {% if post.pk in disliked_posts %}
+            <span>You disliked this post.</span>
+          {% else %}
+            <form action="{% url 'like_dislike' post.pk %}" method="post">
+              {% csrf_token %}
+              <button type="submit" name="action" value="dislike">Dislike</button>
+            </form>
+          {% endif %}
+
         </li>
       {% endfor %}
     </ul>

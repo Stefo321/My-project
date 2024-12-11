@@ -34,6 +34,17 @@
         </nav>
     </header>
 
+    <!-- Display error or success messages -->
+    {% if messages %}
+        <div class="container mt-3">
+            <div class="alert alert-info">
+                {% for message in messages %}
+                    <p>{{ message }}</p>
+                {% endfor %}
+            </div>
+        </div>
+    {% endif %}
+
     <!-- Main Content Section -->
     <main>
         {% block content %}{% endblock %}
@@ -43,5 +54,8 @@
     <footer>
         <p>&copy; 2024 My Blog</p>
     </footer>
+
+    <!-- Global Form Validation JavaScript -->
+    <script src="{% static 'js/form-validation.js' %}"></script>
 </body>
 </html>
